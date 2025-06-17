@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dark/Light Mode Form</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              200: '#bae6fd',
+              300: '#7dd3fc',
+              400: '#38bdf8',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+              800: '#075985',
+              900: '#0c4a6e',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * {
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .card {
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: box-shadow 0.3s ease;
+    }
+
+    .dark .card {
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .toggle-bg {
+      background: linear-gradient(90deg, #0ea5e9 0%, #8b5cf6 100%);
+    }
+
+    .theme-icon {
+      transition: transform 0.5s ease;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 min-h-screen flex flex-col">
+ <header class="py-6 px-4 sm:px-6 bg-white dark:bg-gray-800 shadow-sm relative">
+  <div class="max-w-4xl mx-auto flex items-center justify-center relative">
+    <!-- Centered Heading -->
+    <div class="flex items-center">
+      <i class="fas fa-user-circle text-primary-600 dark:text-primary-400 text-2xl mr-3"></i>
+      <h1 class="text-xl font-bold">Account Registration</h1>
+    </div>
+
+    <!-- Toggle on far right -->
+    <div class="absolute right-0 top-1/2 -translate-y-1/2 flex items-center">
+      <span class="mr-3 text-sm hidden sm:block">Theme</span>
+      <button id="theme-toggle" class="relative w-14 h-7 rounded-full bg-gray-200 dark:bg-gray-700 focus:outline-none">
+        <div class="absolute left-1 top-1 w-5 h-5 rounded-full bg-white dark:bg-gray-900 theme-icon flex items-center justify-center">
+          <i class="fas fa-sun text-yellow-500 text-xs dark:hidden"></i>
+          <i class="fas fa-moon text-blue-300 text-xs hidden dark:block"></i>
+        </div>
+      </button>
+    </div>
+  </div>
+</header>
+
+  <main class="flex-grow py-8 px-4">
+    <div class="max-w-md mx-auto bg-white dark:bg-gray-800 rounded-xl card p-6 sm:p-8">
+      <div class="text-center mb-8">
+        <h2 class="text-2xl font-bold mb-3">Create Your Account</h2>
+        <p class="text-gray-600 dark:text-gray-400">Join our platform today</p>
+      </div>
+
+      <form action="/user/register" 
+      method="post"
+      class="space-y-6">
+        <div>
+          <label for="first_name" class="block text-sm font-medium mb-2 flex items-center">
+            <i class="fas fa-user mr-2 text-primary-600 dark:text-primary-400"></i>
+            User Name
+          </label>
+          <input type="text" id="first_name" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400" placeholder="Enter your user name" name="username" required>
+        </div>
+
+        <div>
+          <label for="email" class="block text-sm font-medium mb-2 flex items-center">
+            <i class="fas fa-envelope mr-2 text-primary-600 dark:text-primary-400"></i>
+            Email Address
+          </label>
+          <input type="email" id="email" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400" placeholder="your.email@example.com" name="email" required>
+        </div>
+
+        <div>
+          <label for="password" class="block text-sm font-medium mb-2 flex items-center">
+            <i class="fas fa-lock mr-2 text-primary-600 dark:text-primary-400"></i>
+            Password
+          </label>
+          <input type="password" id="password" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400" placeholder="Create a strong password" name="password" required>
+        </div>
+
+        <div class="pt-4">
+          <button type="submit" class="w-full py-3 px-4 bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-300 text-white font-medium rounded-lg text-sm transition-colors duration-300 dark:bg-primary-700 dark:hover:bg-primary-800 dark:focus:ring-primary-800">
+            Create Account
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <footer class="py-6 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
+    <div class="max-w-4xl mx-auto px-4 text-center text-gray-600 dark:text-gray-400 text-sm">
+      <!-- Footer text removed -->
+    </div>
+  </footer>
+
+  <script>
+    // System preference detection
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+    // Update theme based on system preference
+    const updateTheme = (isDark) => {
+      if (isDark) {
+        document.documentElement.classList.add('dark');
+        localStorage.theme = 'dark';
+        document.querySelector('.theme-icon').style.transform = 'translateX(28px)';
+      } else {
+        document.documentElement.classList.remove('dark');
+        localStorage.theme = 'light';
+        document.querySelector('.theme-icon').style.transform = 'translateX(0)';
+      }
+    };
+
+    // Set initial theme
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && systemPrefersDark.matches)) {
+      updateTheme(true);
+    } else {
+      updateTheme(false);
+    }
+
+    // Listen for system preference changes
+    systemPrefersDark.addEventListener('change', e => {
+      if (!('theme' in localStorage)) {
+        updateTheme(e.matches);
+      }
+    });
+
+    // Manual toggle
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+      const isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        localStorage.theme = 'light';
+        updateTheme(false);
+      } else {
+        localStorage.theme = 'dark';
+        updateTheme(true);
+      }
+    });
+  </script>
+</body>
+</html>
